@@ -1,34 +1,43 @@
+/**
+ * BookStore class provides methods to perform actions like navigation,
+ * login, book addition, book checking, and book deletion in a bookstore application.
+ */
 class BookStore {
 
+    /**
+     * Navigate to a specific page in the bookstore by clicking the corresponding text link.
+     * @param {string} page - The name of the page to navigate to.
+     */
     navigateTo(page){
-
         cy.contains('span.text', page).click()
-
     }
 
+    /**
+     * Logs into the bookstore application with the given username and password.
+     * @param {string} username - The username to use for logging in.
+     * @param {string} password - The password to use for logging in.
+     */
     login(username, password){
-    
         this.navigateTo('Login')
-
         cy.location('pathname').should('equal', '/login')
-
-        cy.get('#userName')
-            .type(username)
-
-        cy.get('#password')
-            .type(password)
-
-        cy.get('#login')
-            .should('contain', 'Login')
-            .click()
+        cy.get('#userName').type(username)
+        cy.get('#password').type(password)
+        cy.get('#login').should('contain', 'Login').click()
     }
 
+    /**
+     * Checks whether the user has logged in successfully by comparing the provided username.
+     * @param {string} username - The username to check.
+     */
     loginCheck(username) {
         cy.get('#userName-value').invoke('text').then(text => {
             expect(text.trim().toLowerCase()).to.equal(username.toLowerCase())
         })
     }
 
+    /**
+     * Adds a random book from the available list and sets the book name as an alias called "bookName".
+     */
     addBook(){
 
         cy.get('div.action-buttons a')  // Retrieve all the links
@@ -61,6 +70,11 @@ class BookStore {
     //     });
     // }
 
+    /**
+     * Checks whether the correct book name is displayed on the page.
+     * If the text in the specified cell is empty, it should be a non-breaking space (ASCII code 160);
+     * otherwise, it should match the expected book name.
+     */
     bookCheck() {
         // Retrieve the alias "bookName" that holds the expected book name
         cy.get('@bookName').then(bookName => {
@@ -85,12 +99,14 @@ class BookStore {
         })
     }
     
-    
-
+    /**
+     * Deletes a book from the bookstore.
+     */
     bookDelete() {
         cy.get('#delete-record-undefined').click()
         cy.get('#closeSmallModal-ok').click()
     }
 }
 
+// Export an instance of the BookStore class.
 export const bookStore = new BookStore
