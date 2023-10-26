@@ -1,4 +1,9 @@
-cypress/videos/
-cypress/screenshots/
 node_modules/
-cypress.env.json
+cypress/screenshots/
+cypress/videos/
+reports/
+results/
+cypress/e2e/1-getting-started
+cypress/e2e/2-advanced-examples
+mochawesome-report/
+mochawesome.json
