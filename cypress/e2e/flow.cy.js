@@ -39,15 +39,15 @@ describe('template spec', () => {
     // Check that the previously added book matches the one shown in the profile
     bookStore.bookCheck()
 
-    // Delete the book
-    bookStore.bookDelete()
-    
     // Intercept and validate the DELETE request for book deletion
     cy.intercept({
       method: 'DELETE',
       url: '**/BookStore/v1/Book'
     }).as('deleteBook')
-    
+
+    // Delete the book
+    bookStore.bookDelete()
+       
     // Wait for the DELETE request and check the response code
     cy.wait('@deleteBook').then((interception) => {
       expect(interception.response.statusCode).to.eq(204);
