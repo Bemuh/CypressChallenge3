@@ -1,9 +1,8 @@
 {
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
-    "cypress": "^12.17.3"
+    "cypress": "^13.3.3"
   },
-
   "scripts": {
     "delete:reports": "if exist cypress\\results rmdir /s /q cypress\\results",
     "prereport": "npm run delete:reports",
